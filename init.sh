@@ -38,14 +38,14 @@ fi
 if [[ $METHOD == "-f" ]]; then
     echo "cloning git repos listed in manifest file " $MANIFEST_PATH      
     MANIFEST_TEXT=$(<$MANIFEST_PATH)
-    echo $MANIFEST_TEXT
+    echo "$MANIFEST_TEXT"
 elif [[ $METHOD == "-u" ]]; then
     echo "cloning git repos listed in manifest url" $MANIFEST_PATH
     if ! MANIFEST_TEXT=$(curl -fsSL "$MANIFEST_PATH"); then
         echo "Failed to fetch manifest from $MANIFEST_PATH"
         exit 1
     fi
-    echo $MANIFEST_TEXT
+    echo "$MANIFEST_TEXT" | tee manifest.txt
 else
     echo "bad method " $METHOD
     exit
