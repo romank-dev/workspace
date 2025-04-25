@@ -13,7 +13,7 @@
 # limitations under the License.
 #
 
-SUBDIRS = $(wildcard src/*)
+SUBDIRS = $(notdir $(wildcard src/*))
 			
 .PHONY: subdirs $(SUBDIRS)
 subdirs: $(SUBDIRS)
@@ -29,7 +29,7 @@ export INCLUDE_OPENCV = $(shell pkg-config --silence-errors --cflags-only-I open
 
 $(SUBDIRS):
 	@echo "\033[0;97m [ENTER] $@"
-	@$(MAKE) -s -C $@  
+	@$(MAKE) -s -C src/$@
 	@echo "\033[0;97m [EXIT] $@"
 
 .PHONY: all init clean
