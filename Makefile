@@ -23,7 +23,7 @@ export G_BIN = $(shell pwd)/bin
 export G_OBJ = $(shell pwd)/obj
 export G_CXXFLAGS = -g3
 export G_LDFLAGS = 
-export LDFLAGS_OPENCV = -lopencv_core -lopencv_highgui -lopencv_imgproc -lopencv_imgcodecs
+export LDFLAGS_OPENCV = -lopencv_core -lopencv_highgui -lopencv_imgproc -lopencv_imgcodecs -lopencv_plot
 export INCLUDE_OPENCV = $(shell pkg-config --silence-errors --cflags-only-I opencv4) $(shell pkg-config --silence-errors --cflags-only-I opencv)
 
 
