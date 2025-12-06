@@ -84,3 +84,5 @@ do
     fi
 done
 
+printf '%q ' "$0" "$@" > last_init_cmd
+echo >> last_init_cmd
