@@ -9,7 +9,7 @@ The dependencies are used to build the projects in the workspace in the right or
 
 **Each workspace project provides a manifest.txt file that can be used to clone it and it's dependencies** 
 
-Here is an example content for a manifest file: 
+Here is an example content for a manifest file where you combine your project with some of my projects: 
 ```
 r:git@github.com:romank-dev/libcommon
 r:git@github.com:romank-dev/libconfig
@@ -48,3 +48,13 @@ The method of making the Linux library loader locate the shared libraries under 
 * Use the LD_LIBRARY_PATH environment variable
 * Add compile flags e.g. `-Wl,-rpath` to the G_CXXFLAGS variable in the root Makefile
    
+## Deep dive + Building projects without Workspace
+If you look at the root Makefile, you will see the required variables that would be passed to the individual Makefiles of the packages/projects/repos under **src**:
+1. G_SRC - directory to where all repos/packages are downloaded. **Packages usually include headers from other packages by referencing G_SRC/package/include**
+2. G_BIN - directory where all compiled binaries will sit. The libraries are directly in G_BIN, while package-related executables are under another directory named after their package.
+3. G_OBJ - directory where temporary object (.o) files and dependency (.d) files are stored. We hide them away from the code and executables since they provice no value to us.
+4. G_CXXFLAS - flags that (hopefully) all package Makefiles add to their C++ compiler flags
+5. LDFLAGS - flags that (hopefully) all package Makefiles add to their C++ linker flags
+6. LDFLAGS_OPENCV - Optionally, the list of common OpenCV library names. This may be removed one day.
+7. INCLUDE_OPENCV - Optionally, path to opencv headers. This may be removed one day.
+Once these variables are passed to a makefile of a particular package, the build should be straightforward.
